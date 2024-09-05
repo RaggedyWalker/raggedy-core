@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div id="app1"></div>
+        <div id="app2"></div>
+    </div>
+</body>
+<!-- <script type="module" src="../../src/micro-app/micro-app.js"></script> -->
+<script type="module">
+    import { start,registryMicroApp } from "../../src/micro-app/micro-app.js";
+    registryMicroApp([{
+        name: 'app1',
+        entry: 'http://localhost:18888',
+        container: '#app1',
+        activeRule: '/micro/eye'
+    }])
+    start();
+</script>
+</html>

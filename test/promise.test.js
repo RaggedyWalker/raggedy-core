@@ -1,5 +1,5 @@
-// import RaggedyPromise from "../src/promise.js";
-const RaggedyPromise = require("../src/promise.js");
+import RaggedyPromise from "../src/promise.js";
+// const RaggedyPromise = require("../src/promise.js");
 
 // 正版的
 let promise = new Promise((resolve, reject) => {
