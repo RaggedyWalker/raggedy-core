@@ -11,3 +11,9 @@ console.log(origin);
 const origin1 = [1, 2, 3];
 console.log(origin1.mySplice(1, 2));
 console.log(origin1);
+
+
+const reduceArray = [1,2,3];
+console.log(reduceArray.myReduce(function(pre,cur){
+    return pre+cur;
+},0));

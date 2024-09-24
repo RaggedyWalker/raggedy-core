@@ -35,6 +35,19 @@ Array.prototype.mySplice = function (index, deleteCount, ...elements) {
   return deleteArray;
 };
 
-[].splice;
+[].reduce(function () {}, 0);
+
+/**
+ * 
+ * @param {Function} callback 
+ * @param {*} initialValue 
+ */
+Array.prototype.myReduce = function (callback, initialValue) {
+  for (let i = 0; i < this.length; i++) {
+    const element = this[i];
+    initialValue = callback(initialValue, element, i, this);
+  }
+  return initialValue;
+}
 
 export default {};
