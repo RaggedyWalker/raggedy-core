@@ -1,3 +1,4 @@
+import { isDeepEqual } from "../object";
 Array.prototype.myUnshift = function () {
   const elements = arguments;
   const move = elements.length;
@@ -38,9 +39,9 @@ Array.prototype.mySplice = function (index, deleteCount, ...elements) {
 [].reduce(function () {}, 0);
 
 /**
- * 
- * @param {Function} callback 
- * @param {*} initialValue 
+ *
+ * @param {Function} callback
+ * @param {*} initialValue
  */
 Array.prototype.myReduce = function (callback, initialValue) {
   for (let i = 0; i < this.length; i++) {
@@ -48,6 +49,29 @@ Array.prototype.myReduce = function (callback, initialValue) {
     initialValue = callback(initialValue, element, i, this);
   }
   return initialValue;
-}
+};
+
+Array.prototype.distinct = function () {
+  const result = [];
+  for (let i = 0; i < this.length; i++) {
+    const element = this[i];
+    if (!result.find((item) => isDeepEqual(item, element))) {
+      result.push(element);
+    }
+  }
+  return result;
+};
+
+console.log(
+  [
+    { a: 1, b: 2 },
+    { a: 1 },
+    { a: 1 },
+    { a: 1, b: { c: 1 } },
+    { b: { c: 1 }, a: 1 },
+  ]
+    .distinct()
+    .map((item) => JSON.stringify(item))
+);
 
 export default {};

@@ -86,6 +86,90 @@ class RaggedyPromise {
     });
     return newPromise;
   }
+
+  static allSettled(promiseList) {
+    return new Promise((resolve, reject) => {
+      let result = [];
+      let count = 0;
+      promiseList.forEach((promise, index) => {
+        promise
+          .then((res) => {
+            result[index] = {
+              status: "fulfilled",
+              value: res,
+            };
+            count++;
+            if (count === promiseList.length) {
+              resolve(result);
+            }
+          })
+          .catch((err) => {
+            result[index] = {
+              status: "rejected",
+              value: err,
+            };
+            count++;
+            if (count === promiseList.length) {
+              resolve(result);
+            }
+          });
+      });
+    });
+  }
+
+  static all(promiseList) {
+    return new Promise((resolve, reject) => {
+      let result = [];
+      let count = 0;
+      promiseList.forEach((promise, index) => {
+        promise
+          .then((res) => {
+            result[index] = res;
+            count++;
+            if (count === promiseList.length) {
+              resolve(result);
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    });
+  }
+
+  static race(promiseList) {
+    return new Promise((resolve, reject) => {
+      promiseList.forEach((promise) => {
+        promise
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      })
+    })
+  }
+
+  static resolve(value) {
+    return new Promise((resolve, reject) => {
+      if (value instanceof RaggedyPromise) {
+        value.then(resolve, reject);
+      } else {
+        resolve(value);
+      }
+    });
+  }
+
+  static reject(value) {
+    return new Promise((resolve, reject) => {
+      if (value instanceof RaggedyPromise) {
+        value.then(resolve, reject);
+      } else {
+        reject(value);
+      }
+    });
+  }
 }
 
 function resolvePromise(promise2, x, resolve, reject) {
